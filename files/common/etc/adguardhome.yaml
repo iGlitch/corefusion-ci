@@ -9,8 +9,8 @@ http:
       - GET /dns-query/{ClientID}
       - POST /dns-query/{ClientID}
     insecure_enabled: false
-  address: 192.168.1.1:3000
-  session_ttl: 720h
+  address: 192.168.0.1:3000
+  session_ttl: 30d
 users:
   - name: admin
     password: $2a$10$6UAhPokKwZlaoNy0qyFcG.X41G0EBjYGvr/epR0mhpdPv1cBTvDQG
@@ -51,7 +51,7 @@ dns:
   fastest_timeout: 5s
   allowed_clients:
     - 127.0.0.1
-    - 192.168.1.0/24
+    - 192.168.0.1/24
   disallowed_clients: []
   blocked_hosts:
     - version.bind
@@ -62,10 +62,13 @@ dns:
   trusted_proxies:
     - 127.0.0.0/8
     - ::1/128
+  cache_enabled: true
   cache_size: 4194304
   cache_ttl_min: 3600
   cache_ttl_max: 3600
   cache_optimistic: true
+  cache_optimistic_answer_ttl: 30s
+  cache_optimistic_max_age: 12h
   bogus_nxdomain: []
   aaaa_disabled: false
   enable_dnssec: true
@@ -99,7 +102,6 @@ tls:
   port_dns_over_quic: 853
   port_dnscrypt: 0
   dnscrypt_config_file: ""
-  allow_unencrypted_doh: false
   certificate_chain: ""
   private_key: ""
   certificate_path: ""
@@ -111,11 +113,14 @@ querylog:
   interval: 6h
   size_memory: 1103
   enabled: false
+  ignored_enabled: false
   file_enabled: true
 statistics:
+  dir_path: ""
   ignored: []
-  interval: 24h
+  interval: 1d
   enabled: false
+  ignored_enabled: false
 filters:
   - enabled: true
     url: https://big.oisd.nl
@@ -151,10 +156,10 @@ dhcp:
   interface_name: br-lan
   local_domain_name: home.arpa
   dhcpv4:
-    gateway_ip: 192.168.1.1
+    gateway_ip: 192.168.0.1
     subnet_mask: 255.255.255.0
-    range_start: 192.168.1.100
-    range_end: 192.168.1.200
+    range_start: 192.168.0.100
+    range_end: 192.168.0.200
     lease_duration: 86400
     icmp_timeout_msec: 1000
     options:
@@ -176,6 +181,7 @@ filtering:
     enabled: false
     bing: true
     duckduckgo: true
+    ecosia: true
     google: true
     pixabay: true
     yandex: true
@@ -186,6 +192,7 @@ filtering:
   rewrites: []
   safe_fs_patterns:
     - /tmp/adguardhome/data/userfilters/*
+  max_http_size: 256MB
   safebrowsing_cache_size: 1048576
   safesearch_cache_size: 1048576
   parental_cache_size: 1048576
@@ -193,6 +200,7 @@ filtering:
   filters_update_interval: 24
   blocked_response_ttl: 10
   filtering_enabled: true
+  rewrites_enabled: true
   parental_enabled: false
   safebrowsing_enabled: false
   protection_enabled: true
