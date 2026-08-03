@@ -2,7 +2,7 @@
 
 These are unofficial custom snapshot builds for WRT1200, WRT1900, WRT3200ACM, WRT32X, E8450 (UBI) with patches from [Divested](https://divested.dev/wrt/patches/). This build is aimed more for enthusiasts that like ad, tracking, malware, spam, etc - blocking at DNS-level. Privacy is very important nowadays... with CF, there is at least some ad-blocking out of the box, but many of us tinkerers like to have _even more_ granular control! **PS: Check out [this repo](https://github.com/iGlitch/adblock-filter-compiler) and make your own blocklist to paste into AGH!**
 
-🤖 These builds are automatically clean compiled via cron and [script](https://corefusion.xyz/build.sh "custom build script - you can use this script as a base for your own build if you want") which uploads here every 5 days.
+🤖 These builds are automatically clean compiled via cron and [script](https://github.com/iGlitch/corefusion-ci/blob/main/.github/workflows/build.yml) which uploads here every 5 days.
 
 ### 🗒️ Features:
 
@@ -29,17 +29,13 @@ These are unofficial custom snapshot builds for WRT1200, WRT1900, WRT3200ACM, WR
 
 First boot might take a few minutes to get up and running, as long as you see lights, no reason to panic. Check and change your settings as you please and run a [DNS Leak Test](https://dnsleaktest.com/ "DNS Leak Test"). If everything looks good, do a reboot to make sure it all sticks.
 
-✅ Check the [99-corefusion](https://corefusion.xyz/99-corefusion "default/first boot configurations") file for more information. This file is responsible for most of what makes CoreFusion... if you have no internet PLEASE check your DNS settings, it is most likely the culprit.
+✅ Check the [99-corefusion](https://github.com/iGlitch/corefusion-ci/blob/main/files/common/etc/uci-defaults/99-corefusion "default/first boot configurations") file for more information. This file is responsible for most of what makes CoreFusion... if you have no internet PLEASE check your DNS settings, it is most likely the culprit.
 
 AdGuardHome webui is running by default on port 3000. Username is admin Password is corefusion.
 
 ⚠️ I am not responsible for bricks, mistakes, or misconfigurations. Have a backup. [_Please educate yourself with the 30/30/30 (or power switch) process to go back to your other partition in case something goes really wrong._](https://openwrt.org/toh/linksys/wrt3200acm#firmware_recovery "30 30 30 reset")
 
 **Notes:**
-
-To download the entire folder in one go you can use the following command in your terminal (replacing the final part of the url/date with one that actually exists):
-
-wget -r -np -nH --cut-dirs=1 --reject "index.html\*" --no-parent https://corefusion.xyz/20240406/
 
 I do not have any of these devices anymore so my support is limited.
 
