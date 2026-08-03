@@ -72,14 +72,13 @@ jobs:
       - name: Build
         working-directory: openwrt
         run: |
-          make -j$(nproc) download
-          make -j$(nproc) world || make -j1 world V=sc
+          make -j$(nproc) download clean world V=sc
 
       - name: Collect images
         run: |
           mkdir -p out
           find openwrt/bin/targets -type f \
-            \( -name '*.bin' -o -name '*.itb' -o -name '*.img.gz' \) -exec cp {} out/ \;
+            \( -name '*.bin' -o -name '*.itb' -o -name '*.img' -o -name '*.img.gz' -o -name '*.ubi' -\) -exec cp {} out/ \;
           for f in openwrt/bin/targets/*/*/sha256sums; do
             cp "$f" "out/sha256sums-${{ matrix.config }}.txt"
           done
